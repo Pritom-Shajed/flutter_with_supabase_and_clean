@@ -5,6 +5,8 @@ import 'package:flutter_with_supabase/src/core/utils/theme/themes.dart';
 
 class SignUpForm extends StatelessWidget {
   final bool isLoading;
+  final TextEditingController? nameController;
+  final TextEditingController? phoneController;
   final TextEditingController? emailController;
   final TextEditingController? passController;
   final GlobalKey<FormState>? formKey;
@@ -20,6 +22,8 @@ class SignUpForm extends StatelessWidget {
     this.onTapObsecurePass,
     this.formKey,
     this.onTapForgetPass,
+    this.nameController,
+    this.phoneController,
     this.emailController,
     this.passController,
     this.onFieldSubmitted,
@@ -33,6 +37,44 @@ class SignUpForm extends StatelessWidget {
       child: Column(
         spacing: 16,
         children: [
+          TextFormField(
+            controller: nameController,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
+            validator: (v) => v.isNullOrEmpty ? 'Name is required' : null,
+            onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+            onFieldSubmitted: onFieldSubmitted,
+            decoration: const InputDecoration(
+              hintText: "Name",
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFF3F2F2)),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFF3F2F2)),
+              ),
+            ),
+          ),
+          TextFormField(
+            controller: phoneController,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
+            validator: (v) => v.isNullOrEmpty
+                ? 'Phone number is required'
+                : !v!.isPhone
+                    ? 'Invalid phone number'
+                    : null,
+            onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+            onFieldSubmitted: onFieldSubmitted,
+            decoration: const InputDecoration(
+              hintText: "Phone Number",
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFF3F2F2)),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFF3F2F2)),
+              ),
+            ),
+          ),
           TextFormField(
             controller: emailController,
             textInputAction: TextInputAction.next,

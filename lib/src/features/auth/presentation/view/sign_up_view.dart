@@ -40,6 +40,8 @@ class SignUpView extends ConsumerWidget {
                 isLoading: notifier.isLoading,
                 isObsecure: notifier.obscureText,
                 onTapObsecurePass: notifier.toggleObsecureText,
+                nameController: notifier.nameController,
+                phoneController: notifier.phoneController,
                 emailController: notifier.emailController,
                 passController: notifier.passController,
                 onFieldSubmitted: (_) async => await notifier.signUp(context),

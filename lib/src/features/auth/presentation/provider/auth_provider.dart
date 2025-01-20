@@ -22,6 +22,7 @@ class AuthProvider extends Notifier {
   final signupFormKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   final nameController = TextEditingController();
   final passController = TextEditingController();
 
@@ -31,6 +32,7 @@ class AuthProvider extends Notifier {
   @override
   build() {
     emailController.text = 'pritom@gmail.com';
+    phoneController.text = '01700000000';
     nameController.text = 'Pritom';
     passController.text = '123456';
   }
@@ -76,6 +78,7 @@ class AuthProvider extends Notifier {
       params: SignupParams(
         email: emailController.text,
         password: passController.text,
+        phone: phoneController.text,
         name: nameController.text,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),

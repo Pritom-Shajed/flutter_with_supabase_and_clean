@@ -26,6 +26,14 @@ class AuthRemoteServiceImpl implements AuthRemoteService {
       final response = await _supabaseClient.auth.signUp(
         email: params.email,
         password: params.password,
+        data: {
+          'email': params.email,
+          'name': params.name,
+          'phone': params.phone,
+          'avatar': null,
+          'created': params.createdAt.toUtc().toIso8601String(),
+          'updated': params.updatedAt.toUtc().toIso8601String(),
+        },
       );
       return Right(response);
     } on SocketException catch (e) {
