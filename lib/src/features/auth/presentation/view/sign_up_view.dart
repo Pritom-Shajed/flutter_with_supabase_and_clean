@@ -1,18 +1,23 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_with_supabase/src/core/shared/buttons/social_button.dart';
-import 'package:flutter_with_supabase/src/features/auth/widgets/sign_in_form.dart';
+import 'package:flutter_with_supabase/src/core/shared/snackbar/snackbar.dart';
+import 'package:flutter_with_supabase/src/features/auth/presentation/provider/auth_provider.dart';
+import 'package:flutter_with_supabase/src/features/auth/widgets/sign_up_form.dart';
 import 'package:flutter_with_supabase/src/features/auth/widgets/welcome_text.dart';
 import 'package:go_router/go_router.dart';
 
-class SignUpView extends StatelessWidget {
+class SignUpView extends ConsumerWidget {
   const SignUpView({super.key});
 
   static const String name = 'signup';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(authProvider);
+    final notifier = ref.watch(authProvider.notifier);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -30,7 +35,17 @@ class SignUpView extends StatelessWidget {
                 title: "Welcome!",
                 text: "Enter your credentials to sign up.",
               ),
-              const SignInForm(),
+              SignUpForm(
+                formKey: notifier.signupFormKey,
+                isLoading: notifier.isLoading,
+                isObsecure: notifier.obscureText,
+                onTapObsecurePass: notifier.toggleObsecureText,
+                emailController: notifier.emailController,
+                passController: notifier.passController,
+                onFieldSubmitted: (_) async => await notifier.signUp(context),
+                onTapForgetPass: () {},
+                onTapSignUp: () async => await notifier.signUp(context),
+              ),
 
               Center(
                 child: Text.rich(
@@ -56,7 +71,7 @@ class SignUpView extends StatelessWidget {
 
               // Google
               SocalButton(
-                press: () {},
+                press: () => KSnackbar.show(context, 'Will update soon!'),
                 text: "Connect with Google",
                 color: const Color(0xFF4285F4),
                 icon: SvgPicture.asset(

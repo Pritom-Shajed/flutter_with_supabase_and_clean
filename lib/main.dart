@@ -7,9 +7,7 @@ import 'package:flutter_with_supabase/src/core/initializer/initializer.dart';
 import 'package:flutter_with_supabase/src/core/utils/theme/themes.dart';
 
 void main() {
-  Initializer.init(
-    () => runApp(ProviderScope(child: const MyApp())),
-  );
+  Initializer.init(() => runApp(ProviderScope(child: const MyApp())));
 }
 
 void configEasyLoading(BuildContext context) {
@@ -32,7 +30,7 @@ void configEasyLoading(BuildContext context) {
     ..indicatorWidget = const SizedBox(
       height: 70.0,
       width: 70.0,
-      child: SpinKitThreeBounce(color: kPrimaryColor, size: 30.0),
+      child: SpinKitThreeBounce(color: white, size: 30.0),
     )
     ..indicatorType = EasyLoadingIndicatorType.fadingCircle;
 }
